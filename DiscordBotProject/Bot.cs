@@ -79,6 +79,21 @@ namespace DiscordBotProject
                         e.Message.RespondAsync("Level Up!\n Your level is now " + result.lvl);
                     }
                 }
+		else
+                {
+                	if (!e.Author.IsBot)
+                        {
+                            var userdata = new userData()
+                            {
+                                Id = Guid.NewGuid(),
+                                discordId = e.Author.Id.ToString(),
+                                username = e.Author.Username,
+                                lvl = 0,
+                                msgnum = 1
+                            };
+                            ContextDB.users.Add(userdata);
+                        }
+                    }
                 ContextDB.SaveChanges();
 
             };
